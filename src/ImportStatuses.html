@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import Statuses</title>
+</head>
+
+<body>
+    <table>
+        <thead></thead>
+        <tbody></tbody>
+    </table>
+    <script>
+
+        const data = [
+            [
+                "ACTION_DELETE",
+                "Assign Actions",
+                "Action Delete",
+                "Record will result in a delete-attempt on destination table",
+                "Status for a record marked as ready for delete",
+                "Transition",
+                0,
+                8,
+                "#96df96"
+            ],
+            [
+                "ACTION_INSERT",
+                "Assign Actions",
+                "Action Insert",
+                "Record will result in a insert-attempt into destination table",
+                "Status for a record marked as ready for insert",
+                "Transition",
+                0,
+                6,
+                "#fbbd37"
+            ],
+            [
+                "ACTION_UPDATE",
+                "Assign Actions",
+                "Action Update",
+                "Record will result in a update-attempt on destination table",
+                "Status for a record marked as ready for update",
+                "Transition",
+                0,
+                7,
+                "#dd99ff"
+            ],
+            [
+                "DELETE_FAILED",
+                "Merge",
+                "Delete Failed",
+                "Delete attempt failed",
+                "Status for a recrod where the deletion from destination table failed",
+                "Final",
+                3,
+                16,
+                "#f77e7e"
+            ],
+            [
+                "DELETED",
+                "Merge",
+                "Deleted",
+                "Record was successfully deleted",
+                "Status for a record that was successfully deleted from destination table",
+                "Final",
+                0,
+                13,
+                "#15c615"
+            ],
+            [
+                "IGNORED",
+                "Assign Actions",
+                "No Change",
+                "No change - record will be ignored",
+                "Status for a record that will be ignored due to no changes compared with destination record - no CRUD-attempt",
+                "Final",
+                0,
+                9,
+                "#808080"
+            ],
+            [
+                "IMPORTED_ERROR",
+                "Import",
+                "Import Failed",
+                "Record created in import table but with error",
+                "Status for a record created in import table, but flagged with an error",
+                "Final",
+                1,
+                0,
+                "#801a00"
+            ],
+            [
+                "IMPORTED_OK",
+                "Import",
+                "Imported",
+                "Record created successfully in import table",
+                "Status for a record after inserted into import table",
+                "Transition",
+                0,
+                1,
+                "#4964d0"
+            ],
+            [
+                "INSERT_FAILED",
+                "Merge",
+                "Insert Failed",
+                "Insert attempt failed",
+                "Status for a recrod where the insert into destination table attempt failed",
+                "Final",
+                3,
+                14,
+                "#ff0000"
+            ],
+            [
+                "INSERTED",
+                "Merge",
+                "Inserted",
+                "Record was successfully inserted",
+                "Status for a record that was successfully inserted in destination table",
+                "Final",
+                0,
+                11,
+                "#ffd685"
+            ],
+            [
+                "OUT_OF_SCOPE",
+                "Transform",
+                "Out of Scope",
+                "Record excluded from import",
+                "Status for a record that should be ignored / blacklisted",
+                "Final",
+                0,
+                3,
+                "#ff1a8c"
+            ],
+            [
+                "QUALITY_CHECK_FAILED",
+                "Quality Check",
+                "Quality Check Failed",
+                "Record did not pass the quality check, and will be ignored",
+                "Status for a record that failed the quality check. Record will be ignored - no CRUD-attempt",
+                "Final",
+                2,
+                10,
+                "#9d5f81"
+            ],
+            [
+                "TRANSFORMED_OK",
+                "Transform",
+                "Transformed",
+                "Record successfully transformed",
+                "Status for a record after transformation",
+                "Transition",
+                0,
+                2,
+                "#a4aaf4"
+            ],
+            [
+                "UPDATE_FAILED",
+                "Merge",
+                "Update Failed",
+                "Updated attempt failed",
+                "Status for a recrod where the update destination table failed",
+                "Final",
+                3,
+                15,
+                "#be1919"
+            ],
+            [
+                "UPDATED",
+                "Merge",
+                "Updated",
+                "Record was successfully updated",
+                "Status for a record that was successfully updated in destination table",
+                "Final",
+                0,
+                12,
+                "#bd38ff"
+            ],
+            [
+                "VALIDATED_OK",
+                "Validate",
+                "Validated",
+                "Record passed validation",
+                "Status for a record that passed the validation step",
+                "Transition",
+                0,
+                4,
+                "#ff944d"
+            ],
+            [
+                "VALIDATION_FAILED",
+                "Validate",
+                "Validation Failed",
+                "Record failed to pass the validation",
+                "Status for a record where the validation failed",
+                "Final",
+                1,
+                5,
+                "#f7b1b1"
+            ]
+        ]
+        const fields = [
+            {
+                "name": "ID"
+            },
+            {
+                "name": "Phase"
+            },
+            {
+                "name": "Status"
+            },
+            {
+                "name": "Description"
+            },
+            {
+                "name": "Comment"
+            },
+            {
+                "name": "Type"
+            },
+            {
+                "name": "Severity"
+            },
+            {
+                "name": "SortOrder"
+            },
+            {
+                "name": "Color"
+            }
+        ]
+
+    </script>
+    <script>
+
+        const tableHeader = document.body.querySelector('thead')
+
+        const getCellCreator = (elementType) => (cellText) => {
+            const cell = document.createElement(elementType)
+            cell.appendChild(document.createTextNode(cellText))
+            return cell
+        }
+
+        const createTableHeaderCell = getCellCreator('th')
+
+        fields.forEach(f => {
+            tableHeader.appendChild(createTableHeaderCell(f.name))
+        })
+
+        const tableBody = document.body.querySelector('tbody')
+
+        const createTableBodyCell = getCellCreator('td')
+
+        const createTableRow = (dataArray) => {
+            const row = document.createElement('tr')
+            dataArray.forEach((d) => row.appendChild(createTableBodyCell(d)))
+            return row
+        }
+
+        data.forEach((a) => tableBody.append(createTableRow(a)))
+
+    </script>
+    <script>
+
+        /** ChatGPT
+         * 
+         * Could you write me a function in JavaScript that inputs a
+         * color value string in the 6 character hex format and
+         * returns either the string "#ffffff" or "#000000"
+         * 
+         * "#ffffff" should be returned when the average color
+         * component is less than 50%
+         * 
+         * "#000000" should be returned when the average color
+         * component value is less that half of 255
+         * 
+         */
+        function getContrastingColor(hexColor) {
+            // Remove the hash at the start if it's there
+            hexColor = hexColor.replace('#', '');
+
+            // Parse the r, g, b values from the hex color
+            let r = parseInt(hexColor.substring(0, 2), 16);
+            let g = parseInt(hexColor.substring(2, 4), 16);
+            let b = parseInt(hexColor.substring(4, 6), 16);
+
+            // Calculate the average value of the r, g, b components
+            let average = (r + g + b) / 3;
+
+            // Determine the return color based on the average value
+            if (average < 128) {
+                return '#ffffff';
+            } else {
+                return '#000000';
+            }
+        }
+
+    </script>
+    <script>
+
+        document.querySelectorAll('tr').forEach((tr) => {
+            const backgroundColor =
+                tr.querySelector('td:nth-child(9)').innerText
+            const textColor = getContrastingColor(backgroundColor)
+
+            tr.style.backgroundColor = backgroundColor
+            tr.style.color = textColor
+                
+        })
+
+    </script>
+</body>
+
+</html>
